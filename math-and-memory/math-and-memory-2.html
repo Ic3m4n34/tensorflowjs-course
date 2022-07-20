@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <script>
+      function getYs(xs, m, c) {
+        // To implement y = mx + c
+        return xs.mul(m).add(c);
+      }
+      const t1 = tf.tensor1d([1,5,10]);
+      const t2 = getYs(t1, 2, 1);
+      t2.print();
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
