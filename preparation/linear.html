@@ -35,6 +35,26 @@
       return denormalizedTensor;
     };
 
+    const createModel = () => {
+      const model = tf.sequential();
+
+      model.add(tf.layers.dense({
+        units: 1,
+        useBias: true,
+        activation: 'linear',
+        inputDim: 1,
+      }));
+
+      const optimizer = tf.train.sgd(0.1);
+
+      model.compile({
+        loss: 'meanSquaredError',
+        optimizer,
+      });
+
+      return model;
+    };
+
     const run = async () => {
       await tf.ready();
       // Import from CSV
@@ -42,9 +62,9 @@
 
       // Extract x and y values to plot
       const pointsDataset = houseSalesDataset.map((record) => ({
-        // x: record.sqft_living,
+        x: record.sqft_living,
         // x: record.bedrooms,
-        x: record.sqft_lot,
+        // x: record.sqft_lot,
         y: record.price,
       }));
       const pointsArray = await pointsDataset.toArray();
@@ -55,9 +75,9 @@
       }
 
       tf.util.shuffle(pointsArray);
-      // plot(pointsArray, 'Square Feet');
+      plot(pointsArray, 'Square Feet');
       // plot(pointsArray, 'Bedrooms');
-      plot(pointsArray, 'Lot Size');
+      // plot(pointsArray, 'Lot Size');
 
       // Extract Features (inputs)
       const featureValues = pointsArray.map((p) => p.x);
@@ -73,6 +93,11 @@
 
       const [trainingFeatureTensor, testingFeatureTensor] = tf.split(normalizedFeature.tensor, 2);
       const [trainingLabelTensor, testingLabelTensor] = tf.split(normalizedLabel.tensor, 2);
+
+      const model = createModel();
+      tfvis.show.modelSummary({ name: 'Model Summary' }, model);
+      const layer = model.getLayer(undefined, 0);
+      tfvis.show.layer({ name: 'Layer 1' }, layer);
 
       trainingFeatureTensor.print(true);
       // denormalize(normalizedFeature.tensor, normalizedFeature.min, normalizedFeature.max).print();
