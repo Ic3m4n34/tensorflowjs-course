@@ -5,6 +5,9 @@
   "repository": "https://github.com/Ic3m4n34/tensorflowjs-course.git",
   "author": "Nico Meyer <nico.meyer@brandung.de>",
   "license": "MIT",
+  "scripts": {
+    "start": "http-server -p 8080"
+  },
   "dependencies": {
     "@tensorflow/tfjs": "^3.18.0",
     "@tensorflow/tfjs-node": "^3.18.0",
