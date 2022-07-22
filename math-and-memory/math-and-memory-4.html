@@ -3,17 +3,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
     <script>
       for (let i = 0; i < 100; i++) {
-        tf.dispose(tf.tensor1d([1,2,3]));
+        tf.dispose(tf.tensor1d([1, 2, 3]));
       }
       for (let i = 0; i < 100; i++) {
-        tf.tidy(() => tf.tensor1d([4,5,6]));
+        tf.tidy(() => tf.tensor1d([4, 5, 6]));
         // tf.tensor1d([4,5,6]);
       }
 
       console.log(tf.memory());
     </script>
   </head>
-  <body>
-
-  </body>
+  <body></body>
 </html>
